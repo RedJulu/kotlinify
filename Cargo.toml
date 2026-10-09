@@ -2,5 +2,12 @@
 name = "kotlinify"
 version = "0.1.0"
 edition = "2024"
+description = "Kotlin-Inspired Utility traits for Rust"
+license = "MIT"
+repository = "https://github.com/RedJulu/kotlinify"
+readme = "README.md"
+authors = [
+    "RedJulu"
+]
 
 [dependencies]

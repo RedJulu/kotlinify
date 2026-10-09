@@ -21,6 +21,35 @@ impl<T> Also for T {
     }
 }
 
+/// Executes an action with a mutable reference to the value and returns it.
+///
+/// # Examples
+///
+/// ```
+/// use kotlinify::Apply;
+///
+/// #[derive(Debug, PartialEq)]
+/// struct Config {
+///     port: u16,
+/// }
+///
+/// let config = Config { port: 0 }.apply(|it| {
+///     it.port = 8080;
+/// });
+///
+/// assert_eq!(config.port, 8080);
+/// ```
+pub trait Apply: Sized {
+    fn apply(self, action: impl FnOnce(&mut Self)) -> Self;
+}
+
+impl<T> Apply for T {
+    fn apply(mut self, action: impl FnOnce(&mut Self)) -> Self {
+        action(&mut self);
+        self
+    }
+}
+
 /// Executes a block with the contained value if it is `Some`.
 ///
 /// Returns `Some(result)` if the option contains a value, otherwise `None`.
