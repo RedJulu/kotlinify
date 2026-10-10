@@ -34,3 +34,29 @@ impl IfBlank for String {
         }
     }
 }
+
+/// Returns the contained value or its default value if `None`.
+///
+/// # Examples
+///
+/// ```
+/// use kotlinify::OrEmpty;
+///
+/// let name: String = None.or_empty();
+/// assert_eq!(name, "");
+///
+/// let numbers: Vec<i32> = None.or_empty();
+/// assert!(numbers.is_empty());
+///
+/// let number: i32 = None.or_empty();
+/// assert_eq!(number, 0)
+/// ```
+pub trait OrEmpty<T> {
+    fn or_empty(self) -> T;
+}
+
+impl<T: Default> OrEmpty<T> for Option<T> {
+    fn or_empty(self) -> T {
+        self.unwrap_or_default()
+    }
+}
